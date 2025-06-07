@@ -4,7 +4,7 @@ A simple Python script to scrape IMDb's Most Popular Movies list.
 
 ---
 
-## Group Member - Group XXX
+## Group Member - Group 7
 
 | Name             | Matric Number |
 |------------------|---------------|
