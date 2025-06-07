@@ -51,14 +51,13 @@ class IMDbScraper:
             try:
                 # Title
                 title_tag = movie.find('h3', class_='ipc-title__text')
-                title = title_tag.text.strip() if title_tag else ''
-
+                title = title_tag.text.strip() if title_tag else 'N/A'
+                
                 # Metadata (year, duration, content rating)
-                metadata_spans = movie.find_all(
-                    'span', class_='cli-title-metadata-item')
-                year = ''
-                duration = ''
-                content_rating = ''
+                metadata_spans = movie.find_all('span', class_='cli-title-metadata-item')
+                year = 'N/A'
+                duration = 'N/A'
+                content_rating = 'N/A'
                 for span in metadata_spans:
                     text = span.text.strip()
                     if re.match(r'^\d{4}$', text):
@@ -67,27 +66,22 @@ class IMDbScraper:
                         duration = text
                     elif len(text) <= 5:
                         content_rating = text
-
+                
                 # IMDb rating
-                rating_elem = movie.find(
-                    'span', class_='ipc-rating-star--rating')
-                rating = rating_elem.text.strip() if rating_elem else ''
-
+                rating_elem = movie.find('span', class_='ipc-rating-star--rating')
+                rating = rating_elem.text.strip() if rating_elem else 'N/A'
+                
                 # Number of votes
-                votes_elem = movie.find(
-                    'span', class_='ipc-rating-star--voteCount')
-                votes = votes_elem.text.replace(
-                    '(', '').replace(')', '').strip() if votes_elem else ''
-
+                votes_elem = movie.find('span', class_='ipc-rating-star--voteCount')
+                votes = votes_elem.text.replace('(', '').replace(')', '').strip() if votes_elem else 'N/A'
+                
                 # Movie URL
-                link_tag = movie.find(
-                    'a', class_='ipc-title-link-wrapper', href=True)
-                url = f"{self.base_url}{link_tag['href']}" if link_tag else ''
-
+                link_tag = movie.find('a', class_='ipc-title-link-wrapper', href=True)
+                url = f"{self.base_url}{link_tag['href']}" if link_tag else 'N/A'
+                
                 # Poster image URL
                 poster_img = movie.find('img', class_='ipc-image')
-                poster_url = poster_img['src'] if poster_img and poster_img.has_attr(
-                    'src') else ''
+                poster_url = poster_img['src'] if poster_img and poster_img.has_attr('src') else 'N/A'
 
                 self.data.append({
                     'title': title,
